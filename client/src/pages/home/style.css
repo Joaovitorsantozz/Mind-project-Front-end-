@@ -73,6 +73,11 @@ button.form-cadastro {
   border: none;
   font-size: 20px;
   background-color: #188FA7;
+
+  &:hover{
+    cursor: pointer;
+    background-color:#0b434e;
+  }
 }
 
 
