@@ -1,7 +1,18 @@
 {
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ]
-}
+    "compilerOptions": {
+      "target": "ES6",
+      "module": "CommonJS",
+      "moduleResolution": "node",
+      "esModuleInterop": true,
+      "skipLibCheck": true,
+      "strict": true,
+      "outDir": "./dist",
+      "rootDir": "./",  // Mantém o rootDir para o diretório principal do projeto
+      "resolveJsonModule": true
+    },
+    "include": [
+      "client/src/**/*",  // Inclui arquivos TypeScript dentro de client/src
+      "server/index.ts"   // Inclui o arquivo index.ts na pasta server
+    ],
+    "exclude": ["node_modules"]
+  }
