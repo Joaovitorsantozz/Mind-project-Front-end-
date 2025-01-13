@@ -56,30 +56,49 @@ const Estoque = () => {
           <img src={produto.image} alt="Imagem do produto" />
           <h2>{produto.nome}</h2>
         </div>
-        <div className="estoque-descricao">
-          <button>+</button>
-          <h2>Em estoque: {produto.quantidade}</h2>
-          <button>-</button>
-        </div>
-        <div className="estoque-descricao">
-          <label>Categoria</label>
-          <select value={produto.categoria}>
-            <option value="roupa">Roupa</option>
-            <option value="eletronico">Eletrônico</option>
-            <option value="moveis">Móveis</option>
-          </select>
-        </div>
-        <div className="estoque-descricao">
-          <label>Preço (R$)</label>
-          {/* Definindo o placeholder somente após o produto ser carregado */}
-          <input type="number" placeholder={produto.preço ? produto.preço.toString() : ""} />
-        </div>
-        <div className="estoque-descricao">
-          <label>Alterar Nome</label>
-          <input type="text" placeholder={produto.nome} />
-        </div>
+        <Formik
+          initialValues={{
+            nome: "",
+            preco: 0,
+            categoria: "",
+          }}
+          onSubmit={(values) => {
+            // Aqui você pode manipular os dados do formulário (values)
+            console.log("Dados enviados:", values);
+          }}
+        >
+
+          <Form>
+            <div className="estoque-descricao">
+              <button>+</button>
+              <h2>Em estoque: {produto.quantidade}</h2>
+              <button>-</button>
+            </div>
+            <div className="estoque-descricao">
+              <label>Categoria</label>
+              <Field as="select" name="categoria" value={produto.categoria}>
+                <option value="" disabled>
+                  Selecione uma categoria
+                </option>
+                <option value="bermuda">Bermuda</option>
+                <option value="agasalho">Agasalho</option>
+                <option value="camiseta">Camiseta</option>
+
+              </Field>
+            </div>
+            <div className="estoque-descricao">
+              <label>Preço (R$)</label>
+              <Field name="preco" type="number" placeholder={produto.preço ? produto.preço.toString() : ""} />
+            </div>
+            <div className="estoque-descricao">
+              <label>Alterar Nome</label>
+              <Field name="nome" placeholder={produto.nome ? produto.nome : ""} />
+            </div>
+            <button type="submit">Salvar</button>
+          </Form>
+        </Formik>
       </div>
-    </div>
+    </div >
   );
 };
 

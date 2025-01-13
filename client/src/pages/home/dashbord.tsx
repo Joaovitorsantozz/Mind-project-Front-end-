@@ -13,7 +13,11 @@ const dashBoard = () => {
   const token = localStorage.getItem("token");
 
   useEffect(() => {
-    Axios.get("http://localhost:3001/dashboard")
+    Axios.get("http://localhost:3001/dashboard",{
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`, // Adicionando o token aqui
+      },
+    })
       .then((response) => {
         console.log("Produtos recebidos:", response.data); // Verifique os dados recebidos
         setProdutos(response.data);
@@ -68,6 +72,7 @@ const dashBoard = () => {
     Axios.post("http://localhost:3001/dashboard", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
+        Authorization:`Bearer ${localStorage.getItem("token")}`,
       },
     })
       .then((response) => {
