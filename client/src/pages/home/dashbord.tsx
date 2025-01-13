@@ -12,14 +12,16 @@ const dashBoard = () => {
   const username = localStorage.getItem("email");
   const token = localStorage.getItem("token");
 
-  useEffect(()=>{
-    Axios.get("http://localhost:3001/dashboard").then((response)=>{
-      setProdutos(response.data);
-    })
-    .catch((error)=>{
-      console.log("error",error);
-    })
-  },[]);
+  useEffect(() => {
+    Axios.get("http://localhost:3001/dashboard")
+      .then((response) => {
+        console.log("Produtos recebidos:", response.data); // Verifique os dados recebidos
+        setProdutos(response.data);
+      })
+      .catch((error) => {
+        console.error("Erro ao buscar produtos:", error);
+      });
+  }, []);
 
   interface Item {
     id: number;
@@ -205,7 +207,7 @@ const dashBoard = () => {
                       accept="image/jpeg, image/png"
                       onChange={(event) => {
                         const file = event.currentTarget.files?.[0] || null;
-                        setFieldValue('imagem', file); // Atualiza o valor no Formik
+                        setFieldValue('imagem', file);
                       }}
                     />
                     {errors.imagem && touched.imagem && <div>{errors.imagem}</div>}
