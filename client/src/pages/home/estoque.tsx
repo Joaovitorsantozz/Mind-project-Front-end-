@@ -14,7 +14,12 @@ const Estoque = () => {
 
   // Verificar se o produto foi carregado
   useEffect(() => {
-    Axios.get(`http://localhost:3001/produto/${id}`)
+    Axios.get(`http://localhost:3001/produto/${id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+
       .then((response) => {
         console.log("Resposta do backend:", response.data); // Verifique o conteúdo aqui
         setProduto(response.data);
@@ -24,14 +29,33 @@ const Estoque = () => {
       });
   }, [id]);
 
-  const token = localStorage.getItem("token");
 
-  // Verificação de token
+  const handleEditItem = (values: Produto) => {
+    const formData = new FormData();
+
+    formData.append("nome",values.nome);
+    formData.append("preço",String(values.preço));
+    formData.append("categoria",values.categoria);
+
+
+    Axios.post("http://localhost:3001/editar",formData,{
+        headers:{
+        Authorization:`Bearer ${localStorage.getItem("token")}`,
+        },
+    }).then((response)=>{
+        console.log(response.data)
+        alert(response.data);
+    }).catch((error)=>{
+      alert("Erro ao modifcar o item" + error);
+    })
+  }
+
+  const token = localStorage.getItem("token");
   if (!token) {
     return <Navigate to="/login" />;
   }
 
-  // Caso o produto não tenha sido carregado ainda
+ 
   if (!produto) {
     return <p>Produto não encontrado ou carregando...</p>;
   }
@@ -58,14 +82,16 @@ const Estoque = () => {
         </div>
         <Formik
           initialValues={{
+            id:0,
             nome: "",
-            preco: 0,
+            image:"",
+            preço: produto.preço,
             categoria: "",
+            quantidade:0,
+            dataFabricacao:"",
+        
           }}
-          onSubmit={(values) => {
-            // Aqui você pode manipular os dados do formulário (values)
-            console.log("Dados enviados:", values);
-          }}
+          onSubmit={handleEditItem}
         >
 
           <Form>
@@ -88,7 +114,7 @@ const Estoque = () => {
             </div>
             <div className="estoque-descricao">
               <label>Preço (R$)</label>
-              <Field name="preco" type="number" placeholder={produto.preço ? produto.preço.toString() : ""} />
+              <Field name="preco" type="number" placeholder="20" />
             </div>
             <div className="estoque-descricao">
               <label>Alterar Nome</label>
