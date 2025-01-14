@@ -27,6 +27,15 @@ const dashBoard = () => {
       });
   }, []);
 
+  const handleDelete = async (id: number) => {
+    try {
+      await Axios.delete(`http://localhost:3001/products/${id}`);
+      alert("O item foi excluido com sucesso (atualize a página)");
+    } catch (error) {
+      alert('Erro ao excluir');
+    }
+  };
+
   interface Item {
     id: number;
     nome: string;
@@ -121,10 +130,11 @@ const dashBoard = () => {
           {produtos.length > 0 ? (
             produtos.map((produto) => (
               console.log("imagem",produto.imagem),
-              <div key={produto.nome} className='product'>
+              <div key={produto.id} className='product'>
                 <img src={produto.imagem} alt={produto.nome}></img>
                 <h2>{produto.nome}</h2>
                 <Link to={`/estoque/${produto.id}`}>Ver mais detalhes</Link>
+                <button onClick={()=>handleDelete(produto.id)}>Excluir</button>
               </div>
             ))
           ) : (

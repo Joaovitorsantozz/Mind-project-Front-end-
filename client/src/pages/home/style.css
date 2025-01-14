@@ -1,6 +1,6 @@
 section.cadastro {
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   display: block;
 
   justify-content: center;
@@ -233,7 +233,7 @@ div.user-icon {
 
 section.products {
   width: 100%;
-  min-height: 100vh;
+  min-height: 150vh;
   display: flex;
   flex-direction: column;
 
@@ -251,7 +251,7 @@ section.products {
 
 div.product-container {
   width: 87%;
-  height: 90vh;
+  min-height: 90vh;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   margin-left: 12.8%;
@@ -280,8 +280,8 @@ header {
     display: flex;
     margin-right: 100px;
 
-    & a{
-      margin-left:10px;
+    & a {
+      margin-left: 10px;
       text-decoration: underline;
       font-size: 20px;
     }
@@ -291,49 +291,55 @@ header {
 
 div.container {
   display: flex;
-  justify-content: center;  /* Centraliza as divs horizontalmente */
-  align-items: flex-start;  /* Alinha as divs ao topo */
-  height: 80vh;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
   width: 100%;
-  gap: 20px; /* Espaço entre as divs */
+  gap: 20px;
   padding-top: 30px;
 }
 
 div.barra-lateral {
-  flex-shrink: 0; /* Impede que a barra lateral encolha */
-  width: 20%; /* Largura fixa para a barra lateral */
+  flex-shrink: 0;
+ 
+  width: 20%;
+
   min-height: 95%;
   background-color: blue;
 }
 
 div.products-box {
-  flex-shrink: 0; /* Impede que a box de produtos encolha */
-  min-height: 95%;
-  width: 70%; /* Largura fixa para a box de produtos */
+  flex-shrink: 0;
+  min-height: 80vh;
+  padding:50px 0;
+  width: 70%;
   background-color: white;
   display: grid;
-  grid-template-columns: repeat(auto-fill,minmax(300px,1fr));
-  gap:20px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
   align-items: center;
-  & .product{
+  
+  
+
+  & .product {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    justify-self:center;
+    justify-self: center;
     width: 300px;
     height: 300px;
-  
+
 
     & a {
       text-decoration: underline;
-      color:#0b434e;
-      cursor:pointer;
-      transition:0.3s ease-in;
+      color: #0b434e;
+      cursor: pointer;
+      transition: 0.3s ease-in;
 
 
-      &:hover{
-       
+      &:hover {
+
         font-size: 20px;
       }
     }
@@ -341,12 +347,37 @@ div.products-box {
 }
 
 
-div.product img{
+div.product img {
   max-width: 200px;
   max-height: 200px;
 }
 
-div.estoque-container{
+div.estoque-box {
+
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: 20px;
+
+  /* Espaço entre os elementos */
+  & h2 {
+    text-align: center;
+    padding-top: 30px;
+    font-size: 40px;
+    color: black;
+
+
+    &a {
+      color: #0056b3;
+    }
+  }
+}
+
+div.estoque-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -354,73 +385,76 @@ div.estoque-container{
   min-height: 100vh;
 }
 
-div.estoque{
-  width:60%;
-  height:70vh;
- 
-  & .estoque-topo{
+div.estoque {
+  width: 60%;
+  height: 70vh;
+
+  & .estoque-topo {
     display: flex;
     align-items: center;
     width: 100%;
     height: 35%;
     background-color: rgb(221, 221, 221);
 
-    & img{
+    & img {
       width: 28%;
       height: 100%;
     }
 
-    & h2{
+    & h2 {
       font-size: 35px;
       text-align: center;
     }
   }
 }
 
-div.estoque-descriçao{
+div.estoque-descriçao {
   display: flex;
+  flex-direction: column;
   align-items: center;
   font-size: 20px;
-  color:black;
+  color: black;
   width: 100%;
-  height:80px;
+  height: 80px;
   justify-content: center;
   background-color: rgb(221, 221, 221);
 
 
-  & button{
+  & button {
     width: 40px;
     height: 40px;
     font-size: 30px;
-    margin:20px;
+    margin: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
-  & input{
-    height:30px;
-    margin-left:20px;
+  & input {
+    height: 30px;
+    margin-left: 20px;
     text-align: center;
   }
 
-  & select{
-    height:40px;
+  & select {
+    height: 40px;
     width: 120px;
-    margin-left:20px;
+    margin-left: 20px;
   }
 }
 
 div.cadastrar-item {
+  padding: 50px;
+ 
   display: flex;
-  justify-content: center; 
-  align-items: center; 
+  justify-content: center;
+  align-items: center;
   margin: 0 auto;
   width: 91%;
   height: 50vh;
   border: 2px solid black;
   background-color: white;
-  box-sizing: border-box; 
+  box-sizing: border-box;
 }
 
 
@@ -429,22 +463,22 @@ div.cadastrar-item {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 20px; 
+  gap: 20px;
   width: 100%;
 }
 
 
 .form-row {
   display: flex;
-  gap: 20px; 
+  gap: 20px;
 }
 
 
 .form-group {
-  flex: 1; 
+  flex: 1;
   min-width: 200px;
 
-  & label{
+  & label {
 
     & p {
       text-align: center;
@@ -455,7 +489,7 @@ div.cadastrar-item {
 
 input,
 select {
-  width: 100%; 
+  width: 100%;
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
