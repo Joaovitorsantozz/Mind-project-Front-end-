@@ -22,6 +22,10 @@ const Login = () => {
         })
             .then((response) => {
                 console.log(response);
+                if(response.data.msg=="Cadastrado com sucesso"){
+                    alert(response.data.msg);
+                    window.location.href = response.data.redirectTo;
+                }
             })
             .catch((error) => {
                 console.error("Erro ao enviar requisição:", error);
@@ -56,12 +60,12 @@ const Login = () => {
                             name="email"
                             className='form-error'
                         />
-                        <Field name="senha" className="form-field" placeholder="Senha"></Field>
+                        <Field name="senha" type="password" className="form-field" placeholder="Senha"></Field>
                         <ErrorMessage component="span"
                             name="senha"
                             className='form-error'
                         />
-                        <Field name="confirmarSenha" className="form-field" placeholder="Confirme a senha"></Field>
+                        <Field name="confirmarSenha" className="form-field" type="password" placeholder="Confirme a senha"></Field>
                         <ErrorMessage component="span"
                             name="confirmarSenha"
                             className='form-error'

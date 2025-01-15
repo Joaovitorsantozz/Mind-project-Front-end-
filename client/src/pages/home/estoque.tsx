@@ -1,6 +1,6 @@
 
 import "./style.css"
-
+import assets from "../../assets/assets";
 import { Navigate } from "react-router-dom";
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -12,7 +12,7 @@ const Estoque = () => {
   const { id } = useParams<{ id: string }>();
   const [produto, setProduto] = useState<Produto | null>(null);
   const navigate = useNavigate();
-
+  const username = localStorage.getItem("email");
   useEffect(() => {
     Axios.get(`http://localhost:3001/produto/${id}`, {
       headers: {
@@ -35,14 +35,15 @@ const Estoque = () => {
       values.nome !== produto?.nome ||
       values.preco !== produto?.preco ||
       values.categoria !== produto?.categoria ||
-      values.quantidade !== produto?.quantidade
+      values.quantidade !== produto?.quantidade||
+      values.descricao !==produto?.descricao
     ) {
       const formData = new FormData();
       formData.append("nome", values.nome);
       formData.append("preco", String(values.preco));
       formData.append("categoria", values.categoria);
       formData.append("quantidade", String(values.quantidade))
-
+      formData.append("descricao",values.descricao)
       formData.append("id", String(values.id));
 
       Axios.post("http://localhost:3001/editar", formData, {
@@ -81,13 +82,34 @@ const Estoque = () => {
     categoria: string;
     quantidade: number;
     dataFabricacao: string;
+    descricao:string;
   }
 
 
 
   return (
     <div className="estoque-box">
-      <h2><Link to="/dashboard">Voltar ao dashboard</Link></h2>
+      <nav>
+        <div className="logo">
+          <img src={assets.box}></img>
+          <h2>Painel Administrativo</h2>
+        </div>
+
+        <div className="usuario-logado">
+          <p><b>{username}</b></p>
+          <img src={assets.user}></img>
+        </div>
+      </nav>
+      <header>
+        <div className="header-left">
+          Controle Painel
+        </div>
+        <div className="header-right">
+         
+          <Link to="/dashboard">Voltar para o dashBoard</Link>
+        </div>
+      </header>
+   
       <div className="estoque-container">
         <div className="estoque">
           <div className="estoque-topo">
@@ -99,10 +121,11 @@ const Estoque = () => {
               id: produto.id,
               nome: produto.nome || '',
               preco: produto.preco || 0,
-              image:"",
+              image: "",
               categoria: produto.categoria || '',
               quantidade: produto.quantidade || 0,
               dataFabricacao: produto.dataFabricacao || '',
+              descricao:produto.descricao || ''
             }}
             onSubmit={handleEditItem}
           >
@@ -118,9 +141,13 @@ const Estoque = () => {
                     <option value="">
                       Selecione uma categoria
                     </option>
-                    <option value="bermuda">Bermuda</option>
-                    <option value="agasalho">Agasalho</option>
-                    <option value="camiseta">Camiseta</option>
+                      <option value="bermuda">Bermuda</option>
+                      <option value="agasalho">Agasalho</option>
+                      <option value="camiseta">Camiseta</option>
+                      <option value="bermuda">Regatas</option>
+                      <option value="Calça">Calça</option>
+                      <option value="agasalho">Roupas de inverno</option>
+                      <option value="camiseta">Roupas íntimas</option>
                   </Field>
                 </div>
                 <div className="estoque-descricao">
@@ -130,6 +157,10 @@ const Estoque = () => {
                 <div className="estoque-descricao">
                   <label>Alterar Nome</label>
                   <Field name="nome" placeholder={produto.nome ? produto.nome : ""} />
+                </div>
+                <div className="estoque-descricao">
+                  <label>Alterar Descrição</label>
+                  <Field name="descricao" placeholder={produto.descricao ? produto.descricao : ""} />
                 </div>
                 <div className="estoque-descricao">
                   <label>ID</label>

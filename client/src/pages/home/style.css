@@ -209,7 +209,7 @@ div.user-icon {
 }
 
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 800px) {
   div.usuario-logado {
     margin-right: 15px;
     justify-content: end;
@@ -229,8 +229,19 @@ div.user-icon {
       font-size: 20px;
     }
   }
+
+  div.cadastrar-item{
+    margin-top:300px
+  }
+ 
 }
 
+
+@media screen and (max-width:1200px){
+  .form-row{
+    display:block !important;
+  }
+}
 section.products {
   width: 100%;
   min-height: 150vh;
@@ -256,9 +267,9 @@ div.product-container {
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   margin-left: 12.8%;
   justify-content: center;
-  /* Centraliza as colunas horizontalmente */
+
   align-items: center;
-  /* Centraliza as divs verticalmente */
+ 
 }
 
 
@@ -279,9 +290,12 @@ header {
   & div.header-right {
     display: flex;
     margin-right: 100px;
+    align-items: center;
 
     & a {
+      color:white;
       margin-left: 10px;
+      font-weight: 500;
       text-decoration: underline;
       font-size: 20px;
     }
@@ -311,6 +325,7 @@ div.barra-lateral {
 div.products-box {
   flex-shrink: 0;
   min-height: 80vh;
+ 
   padding:50px 0;
   width: 70%;
   background-color: white;
@@ -328,8 +343,8 @@ div.products-box {
     flex-direction: column;
     justify-self: center;
     width: 300px;
-    height: 300px;
-
+    min-height: 350px;
+  
 
     & a {
       text-decoration: underline;
@@ -360,17 +375,12 @@ div.estoque-box {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  padding: 20px;
-  gap: 20px;
 
-  /* Espaço entre os elementos */
+
   & h2 {
     text-align: center;
     padding-top: 30px;
     font-size: 40px;
-    color: black;
-
-
     &a {
       color: #0056b3;
     }
@@ -451,7 +461,7 @@ div.cadastrar-item {
   align-items: center;
   margin: 0 auto;
   width: 91%;
-  height: 50vh;
+  min-height: 50vh;
   border: 2px solid black;
   background-color: white;
   box-sizing: border-box;
@@ -496,7 +506,7 @@ select {
   font-size: 16px;
 }
 
-/* Botão de envio */
+
 button {
   margin-top: 20px;
   padding: 10px 20px;
@@ -509,4 +519,15 @@ button {
 
 button:hover {
   background-color: #0056b3;
+}
+
+button.excluir-item{
+  background-color:red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  & img {
+    align-self: center;
+    margin-left: 5px;
+  }
 }
