@@ -306,6 +306,7 @@ header {
 
 div.container {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: flex-start;
   min-height: 100vh;
@@ -317,18 +318,18 @@ div.container {
 div.barra-lateral {
   flex-shrink: 0;
   width: 20%;
-  min-height: 70%;
+  min-height: 30vh;
   background-color: white;
   display: flex;
   flex-direction: column;
-  
-  & h2{
+
+  & h2 {
     font-size: 22px;
-    padding:20px 0px;
+    padding: 20px 0px;
     text-align: center;
     background-color: #0056b3;
-    color:white;
- 
+    color: white;
+
   }
 
   & ul {
@@ -339,21 +340,22 @@ div.barra-lateral {
     align-items: center;
     list-style: none;
   }
-  & li{
+
+  & li {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
     font-size: 18px;
     height: 65px;
-    border-bottom:1px solid rgb(184, 184, 184);
-    
-    & a{
-      color:black;
+    border-bottom: 1px solid rgb(184, 184, 184);
+
+    & a {
+      color: black;
       text-decoration: none;
 
-      &:hover{
-        color:#0056b3;
+      &:hover {
+        color: #0056b3;
       }
     }
   }
@@ -398,19 +400,20 @@ div.products-box {
   }
 }
 
-div.produtos-show{
+div.produtos-show {
 
   min-height: 80vh;
 
   width: 70%;
   background-color: white;
   align-items: center;
-  & > h2{
-    padding:30px 0px;
+
+  &>h2 {
+    padding: 30px 0px;
     text-align: center;
-    width:100%;
+    width: 100%;
     height: 35px;
-    color:white;
+    color: white;
     font-size: 30px;
     background-color: #0056b3;
   }
@@ -588,11 +591,60 @@ button.excluir-item {
   }
 }
 
-.selected{
-  color:white !important;
+.selected {
+  color: white !important;
   background-color: #007bff;
 
   & a {
-    color:white !important;
+    color: white !important;
+  }
+}
+
+
+@media screen and (max-width: 400px) {
+  .usuario-logado{
+    display: none !important;
+  }
+  .container {
+    flex-direction: column;
+    align-items: center; 
+  }
+
+  .barra-lateral,
+  .produtos-show,
+  .cadastrar-item {
+    width: 100% !important;  
+  }
+
+  .header-left, 
+  .header-right {
+    text-align: center; 
+    width: 100%; 
+  }
+
+  .produtos-show .products-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+  }
+
+  .form-row {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .form-group {
+    width: 100%; 
+    margin-bottom: 15px; 
+  }
+
+  .form-group label {
+    font-size: 14px; 
+  }
+
+  button {
+    width: 100%; 
+    padding: 10px;
   }
 }
