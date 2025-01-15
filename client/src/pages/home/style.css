@@ -230,18 +230,19 @@ div.user-icon {
     }
   }
 
-  div.cadastrar-item{
-    margin-top:300px
+  div.cadastrar-item {
+    margin-top: 300px
   }
- 
+
 }
 
 
-@media screen and (max-width:1200px){
-  .form-row{
-    display:block !important;
+@media screen and (max-width:1200px) {
+  .form-row {
+    display: block !important;
   }
 }
+
 section.products {
   width: 100%;
   min-height: 150vh;
@@ -269,7 +270,7 @@ div.product-container {
   justify-content: center;
 
   align-items: center;
- 
+
 }
 
 
@@ -293,7 +294,7 @@ header {
     align-items: center;
 
     & a {
-      color:white;
+      color: white;
       margin-left: 10px;
       font-weight: 500;
       text-decoration: underline;
@@ -315,26 +316,62 @@ div.container {
 
 div.barra-lateral {
   flex-shrink: 0;
- 
   width: 20%;
+  min-height: 70%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  
+  & h2{
+    font-size: 22px;
+    padding:20px 0px;
+    text-align: center;
+    background-color: #0056b3;
+    color:white;
+ 
+  }
 
-  min-height: 95%;
-  background-color: blue;
+  & ul {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+  }
+  & li{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    font-size: 18px;
+    height: 65px;
+    border-bottom:1px solid rgb(184, 184, 184);
+    
+    & a{
+      color:black;
+      text-decoration: none;
+
+      &:hover{
+        color:#0056b3;
+      }
+    }
+  }
 }
 
 div.products-box {
   flex-shrink: 0;
   min-height: 80vh;
- 
-  padding:50px 0;
-  width: 70%;
+
+  padding: 50px 0;
+  width: 100%;
   background-color: white;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
   align-items: center;
-  
-  
+
+
 
   & .product {
     display: flex;
@@ -344,7 +381,7 @@ div.products-box {
     justify-self: center;
     width: 300px;
     min-height: 350px;
-  
+
 
     & a {
       text-decoration: underline;
@@ -361,6 +398,23 @@ div.products-box {
   }
 }
 
+div.produtos-show{
+
+  min-height: 80vh;
+
+  width: 70%;
+  background-color: white;
+  align-items: center;
+  & > h2{
+    padding:30px 0px;
+    text-align: center;
+    width:100%;
+    height: 35px;
+    color:white;
+    font-size: 30px;
+    background-color: #0056b3;
+  }
+}
 
 div.product img {
   max-width: 200px;
@@ -381,6 +435,7 @@ div.estoque-box {
     text-align: center;
     padding-top: 30px;
     font-size: 40px;
+
     &a {
       color: #0056b3;
     }
@@ -455,7 +510,7 @@ div.estoque-descriçao {
 
 div.cadastrar-item {
   padding: 50px;
- 
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -521,13 +576,23 @@ button:hover {
   background-color: #0056b3;
 }
 
-button.excluir-item{
-  background-color:red;
+button.excluir-item {
+  background-color: red;
   display: flex;
   justify-content: center;
   align-items: center;
+
   & img {
     align-self: center;
     margin-left: 5px;
+  }
+}
+
+.selected{
+  color:white !important;
+  background-color: #007bff;
+
+  & a {
+    color:white !important;
   }
 }

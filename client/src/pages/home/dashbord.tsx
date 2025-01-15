@@ -8,24 +8,45 @@ import Axios from "axios";
 import { Formik, Form, Field } from "formik";
 import * as yup from "yup";
 const dashBoard = () => {
+  const [categoriaSelecionada, setCategoriaselecionada] = useState<string | undefined>(undefined);
   const [produtos, setProdutos] = useState<Item[]>([]);
   const username = localStorage.getItem("email");
-  const token = localStorage.getItem("token");
+  const [token, setToken] = useState(localStorage.getItem("token"));
   const navigate = useNavigate();
+
+
+
   useEffect(() => {
-    Axios.get("http://localhost:3001/dashboard", {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`, // Adicionando o token aqui
-      },
-    })
-      .then((response) => {
-        console.log("Produtos recebidos:", response.data); // Verifique os dados recebidos
-        setProdutos(response.data);
+    const token = localStorage.getItem('token');
+    const verificarToken = () => {
+      if (!token) {
+        alert('Sua sessão expirou. Por favor, faça login novamente.');
+        navigate('/login');
+      }
+      setToken(token);
+    };
+
+
+    verificarToken();
+
+
+    if (token) {
+      Axios.get("http://localhost:3001/dashboard", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       })
-      .catch((error) => {
-        console.error("Erro ao buscar produtos:", error);
-      });
-  }, []);
+        .then((response) => {
+          console.log("Produtos recebidos:", response.data);
+          setProdutos(response.data);
+        })
+        .catch((error) => {
+          console.error("Erro ao buscar produtos:", error);
+        });
+    }
+
+  }, [navigate, token]);
+
 
   const handleDelete = async (id: number) => {
     try {
@@ -35,6 +56,11 @@ const dashBoard = () => {
       alert('Erro ao excluir');
     }
   };
+
+  const produtosFiltrados = categoriaSelecionada
+    ? produtos.filter((produto) => produto.categoria === categoriaSelecionada)
+    : produtos;
+
 
   interface Item {
     id: number;
@@ -46,6 +72,8 @@ const dashBoard = () => {
     dataFabricacao: string;
     descricao: string;
   }
+
+
   const handleLogout = (event: any) => {
     event.preventDefault();
     localStorage.removeItem("token");
@@ -101,9 +129,17 @@ const dashBoard = () => {
         alert("Erro ao cadastrar item: " + error);
       });
   };
+
+
+
   if (!token) {
     return <Navigate to="/login"></Navigate>
   }
+
+  const getClassName=(categoria:string)=>{
+    return categoria===categoriaSelecionada? "selected" : '';
+  }
+
   return (
     <section className="products">
       <nav>
@@ -130,23 +166,44 @@ const dashBoard = () => {
       </header>
       <div className="container">
         <div className="barra-lateral">
+          <h2>Selecione uma categoria para filtrar</h2>
+          <ul>
+            <li onClick={() => setCategoriaselecionada('')} className={getClassName('')}><a href='#'>Todos</a></li>
+            <li onClick={() => setCategoriaselecionada('bermuda')} className={getClassName('bermuda')} ><a href='#'>Bermuda</a></li>
+            <li onClick={() => setCategoriaselecionada('camiseta')} className={getClassName('camiseta')}><a href='#'>Camiseta</a></li>
+            <li onClick={() => setCategoriaselecionada('agasalho')} className={getClassName('agasalho')}><a href='#'>Agasalho</a></li>
+            <li onClick={() => setCategoriaselecionada('roupa-intima')} className={getClassName('roupa-intima')}><a href='#'>Roupa íntima</a></li>
+            <li onClick={() => setCategoriaselecionada('regata')} className={getClassName('regata')}><a href='#'>Regatas</a></li>
+            <li onClick={() => setCategoriaselecionada('calça')} className={getClassName('calça')}><a href='#'>Calças</a></li>
+            <li onClick={() => setCategoriaselecionada('roupa-de-inverno')} className={getClassName('roupa-de-inverno')}><a href='#'>Roupas de inverno</a></li>
+            <li onClick={() => setCategoriaselecionada('meia')} className={getClassName('meia')}><a href='#'>Meias</a></li>
 
+          </ul>
         </div>
-        <div className="products-box">
-          {produtos.length > 0 ? (
-            produtos.map((produto) => (
-              console.log("imagem", produto.imagem),
-              <div key={produto.id} className='product'>
-                <img src={produto.imagem} alt={produto.nome}></img>
-                <h2>{produto.nome}</h2>
-                <h4>{produto.categoria} </h4>
-                <Link to={`/estoque/${produto.id}`}>Ver mais detalhes</Link>
-                <button className='excluir-item' onClick={() => handleDelete(produto.id)}>Excluir <img src={assets.trash} width={20}></img></button>
-              </div>
-            ))
-          ) : (
-            <p> Nenhum produto encontrado </p>
-          )}
+        <div className='produtos-show'>
+          <h2>Produtos Cadastrados</h2>
+          <div className="products-box">
+            {produtosFiltrados.length > 0 ? (
+              produtosFiltrados.map((produto) => (
+                <div key={produto.id} className='product'>
+                  <img src={produto.imagem} alt={produto.imagem}></img>
+                  <h2>{produto.nome}</h2>
+                  <h4>{produto.categoria}</h4>
+                  <Link to={`/estoque/${produto.id}`}>Ver mais detalhes</Link>
+                  <button
+                    className="excluir-item"
+                    onClick={() => handleDelete(produto.id)}
+                  >
+                    Excluir <img src={assets.trash} width={20}></img>
+                  </button>
+                </div>
+              ))
+            ) : (
+              <p style={{textAlign:'center'}}> Nenhum produto encontrado, cadastre no banco de dados</p>
+            )}
+
+
+          </div>
         </div>
       </div>
 
@@ -204,11 +261,11 @@ const dashBoard = () => {
                         <option value="bermuda">Bermuda</option>
                         <option value="agasalho">Agasalho</option>
                         <option value="camiseta">Camiseta</option>
-                        <option value="bermuda">Regatas</option>
+                        <option value="regata">Regatas</option>
                         <option value="Calça">Calça</option>
-                        <option value="agasalho">Roupas de inverno</option>
-                        <option value="camiseta">Roupas íntimas</option>
-
+                        <option value="roupa-de-inverno">Roupas de inverno</option>
+                        <option value="roupa-intima">Roupas íntimas</option>
+                        <option value="meia">Meias</option>
                       </Field>
                     </label>
                     {errors.categoria && touched.categoria && <div>{errors.categoria}</div>}
@@ -256,7 +313,7 @@ const dashBoard = () => {
           </Formik>
         </div>
       </div>
-    </section>
+    </section >
 
 
   );

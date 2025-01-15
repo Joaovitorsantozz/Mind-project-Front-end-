@@ -42,7 +42,7 @@ function Home() {
                 <Route path="/estoque" element={<Estoque />} />
 
                 <Route path="/estoque/:id" element={<Estoque/>}/>
-                <Route path="/" element={<DashBoard/>}/>
+                <Route path="/" element={<Login/>}/>
               </Routes>
             </Router>
           </div>
