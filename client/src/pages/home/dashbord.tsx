@@ -136,9 +136,14 @@ const dashBoard = () => {
     return <Navigate to="/login"></Navigate>
   }
 
-  const getClassName=(categoria:string)=>{
-    return categoria===categoriaSelecionada? "selected" : '';
+  const getClassName = (categoria: string) => {
+    return categoria === categoriaSelecionada ? "selected" : '';
   }
+
+  const handleScrollToSection = (sectionId: any) => {
+    const section = document.getElementById(sectionId);
+    section?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   return (
     <section className="products">
@@ -149,8 +154,6 @@ const dashBoard = () => {
         </div>
 
         <div className="usuario-logado">
-
-
           <p><b>{username}</b></p>
           <img src={assets.user}></img>
         </div>
@@ -158,6 +161,13 @@ const dashBoard = () => {
       <header>
         <div className="header-left">
           Controle Painel
+        </div>
+        <div className='cadastrar-novo'>
+          <h2> <a href="#sessaocadastraritem"
+            onClick={(e) => {
+              e.preventDefault();
+              handleScrollToSection('sessaocadastraritem');
+            }}>Cadastrar novo produto</a></h2>
         </div>
         <div className="header-right">
           <img src={assets.door} width={30}></img>
@@ -199,7 +209,7 @@ const dashBoard = () => {
                 </div>
               ))
             ) : (
-              <p style={{textAlign:'center'}}> Nenhum produto encontrado, cadastre no banco de dados</p>
+              <p style={{ textAlign: 'center' }}> Nenhum produto encontrado, cadastre no banco de dados</p>
             )}
 
 
@@ -209,7 +219,7 @@ const dashBoard = () => {
 
 
       <div className='container'>
-        <div className="cadastrar-item">
+        <div className="cadastrar-item" id="sessaocadastraritem">
           <Formik
             initialValues={{
               id: 0,
@@ -312,9 +322,9 @@ const dashBoard = () => {
 
           </Formik>
         </div>
+
       </div>
     </section >
-
 
   );
 };

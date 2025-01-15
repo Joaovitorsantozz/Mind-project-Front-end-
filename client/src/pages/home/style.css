@@ -648,3 +648,18 @@ button.excluir-item {
     padding: 10px;
   }
 }
+
+.cadastrar-novo{  
+
+  margin-left:100px; 
+  & a{
+    color:rgb(255, 255, 255);
+    font-weight: bold;
+    text-decoration: underline;
+    font-size: 18px;
+    border-radius: 12px;
+    
+  }
+
+
+}
