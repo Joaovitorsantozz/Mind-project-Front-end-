@@ -19,3 +19,5 @@ versão typescrip : Version 5.7.3
 - caso a API do back end não esteja rodando ao mesmo tempo do front end, ocorrerá problemas de validação e de exibição de itens.
 
 - o projeto contem um token de validação de rotas, portanto após realizar o login,o projeto ira correr por 1h, e após isso será necessário refazer o login para continuar funcionando novamente.
+
+- se por algum motivo o projeto não iniciar corretamente no front-end, digite /register manualmente na url após o localhost:5173 para entrar na página de registrar usuários
