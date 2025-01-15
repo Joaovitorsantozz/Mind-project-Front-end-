@@ -20,6 +20,9 @@ const Login = () => {
         })
             .then((response) => {
                 console.log(response.data.token)
+                if(!response.data.token){
+                    alert("Erro ao logar confira senha e email");
+                }
                 const token = response.data.token;
                 if (token) {
                     localStorage.setItem("token", token);
