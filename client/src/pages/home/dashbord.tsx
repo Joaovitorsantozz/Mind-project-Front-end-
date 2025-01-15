@@ -14,21 +14,19 @@ const dashBoard = () => {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const navigate = useNavigate();
 
-
-
-  useEffect(() => {
+  const obterprodutos = () => {
     const token = localStorage.getItem('token');
+
     const verificarToken = () => {
       if (!token) {
         alert('Sua sessão expirou. Por favor, faça login novamente.');
         navigate('/login');
+        return;
       }
       setToken(token);
     };
 
-
     verificarToken();
-
 
     if (token) {
       Axios.get("http://localhost:3001/dashboard", {
@@ -44,14 +42,21 @@ const dashBoard = () => {
           console.error("Erro ao buscar produtos:", error);
         });
     }
+  };
 
-  }, [navigate, token]);
+  useEffect(obterprodutos, [navigate]);
+
+
 
 
   const handleDelete = async (id: number) => {
     try {
-      await Axios.delete(`http://localhost:3001/products/${id}`);
-      alert("O item foi excluido com sucesso (atualize a página)");
+      await Axios.delete(`http://localhost:3001/products/${id}`, {
+
+      }).then(() => {
+        obterprodutos();
+      })
+      alert("O item foi excluido com sucesso");
     } catch (error) {
       alert('Erro ao excluir');
     }
@@ -79,6 +84,7 @@ const dashBoard = () => {
     localStorage.removeItem("token");
     navigate("/login");
   };
+
 
   const validationCadastroItem = yup.object().shape({
     nome: yup.string().required('O nome é obrigatório'),
@@ -121,6 +127,7 @@ const dashBoard = () => {
       .then((response) => {
         console.log(response.data);
         alert(response.data);
+        obterprodutos();
 
 
 
@@ -202,7 +209,12 @@ const dashBoard = () => {
                   <Link to={`/estoque/${produto.id}`}>Ver mais detalhes</Link>
                   <button
                     className="excluir-item"
-                    onClick={() => handleDelete(produto.id)}
+                    onClick={() => {
+                      const confirmar = window.confirm("Tem certeza que deseja excluir o produto");
+                      if (confirmar) {
+                        handleDelete(produto.id);
+                      }
+                    }}
                   >
                     Excluir <img src={assets.trash} width={20}></img>
                   </button>
